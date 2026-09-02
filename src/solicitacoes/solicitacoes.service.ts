@@ -26,4 +26,21 @@ export class SolicitacoesService {
     solicitacao.status = 'aprovada';
     return solicitacao;
   }
+
+  relatorio() {
+    const porStatus: Record<Solicitacao['status'], number> = {
+      pendente: 0,
+      aprovada: 0,
+      rejeitada: 0,
+    };
+
+    for (const solicitacao of this.solicitacoes) {
+      porStatus[solicitacao.status] += 1;
+    }
+
+    return {
+      total: this.solicitacoes.length,
+      porStatus,
+    };
+  }
 }
